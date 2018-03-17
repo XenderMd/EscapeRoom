@@ -12,3 +12,4 @@ BuildingEscape/Content/StarterContent/
 #VS Generatd Files
 #######################
 *.VC.db
+BuildingEscape/.vs/
