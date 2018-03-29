@@ -35,8 +35,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume *PressurePlate;
 
-	UPROPERTY(EditAnywhere)
-	AActor *ActorThatOpens;
+	AActor *ActorThatOpens; // Remember that Pawn inherits from Actor
 		
 	
 };
