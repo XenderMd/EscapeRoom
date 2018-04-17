@@ -35,6 +35,11 @@ private:
 	
 	UInputComponent *InputComponent = nullptr;
 
-	//Ray-cast and grab what's in reach
+	//Ray-cast and grab what's in reach when pressing the "Grab" key
 	void Grab();
+	//Release when the "Release" key is pressed 
+	void Release();
+	void FindPhysicsHandleComponent();
+	void SetupInputComponent();
+	FHitResult GetFirstBodyinReach();
 };
