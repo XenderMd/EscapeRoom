@@ -14,30 +14,20 @@ UPositionReporter::UPositionReporter()
 	// ...
 }
 
-
 // Called when the game starts
 void UPositionReporter::BeginPlay()
 {
-
 	Super::BeginPlay();
 	struct ObjectLocation{};
-
 	FString ObjectName = GetOwner()->GetName();
 	//FString ObjectPos = GetOwner()->GetActorLocation().ToString();
 	FString ObjectPos = GetOwner()->GetTransform().GetLocation().ToString();
-
 	UE_LOG(LogTemp, Warning, TEXT("%s ist at %s"), *ObjectName, *ObjectPos);
-
-	// ...
-	
 }
-
 
 // Called every frame
 void UPositionReporter::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
 }
 

@@ -27,19 +27,20 @@ public:
 
 private:
 	AActor *Owner;
-
 	//How far ahead of the player we can reach in cm
 	float Reach = 100.f;
 	
 	UPhysicsHandleComponent *PhysicsHandle = nullptr;
-	
 	UInputComponent *InputComponent = nullptr;
 
 	//Ray-cast and grab what's in reach when pressing the "Grab" key
 	void Grab();
 	//Release when the "Release" key is pressed 
 	void Release();
+
 	void FindPhysicsHandleComponent();
 	void SetupInputComponent();
 	FHitResult GetFirstBodyinReach();
+	FVector GetLineTraceEnd();
+	FVector GetLineTraceStart();
 };
