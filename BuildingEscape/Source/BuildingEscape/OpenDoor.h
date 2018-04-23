@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/TriggerVolume.h"
 #include "Components/ActorComponent.h"
+#include "Components/PrimitiveComponent.h"
 #include "OpenDoor.generated.h"
 
 
@@ -40,6 +41,9 @@ private:
 	ATriggerVolume *PressurePlate;
 
 	float LastDoorOpenTime;
+
+	//Returns total mass in Kg
+	float GetTotalMassOfActorsOnPlate();
 
 	AActor *ActorThatOpens; // Remember that Pawn inherits from Actor
 	AActor *Owner;
