@@ -46,7 +46,7 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 
 	// Poll the Trigger Vollume
 	// If the ActorThatOpens is in the volume
-	if (GetTotalMassOfActorsOnPlate()>30.f)
+	if (GetTotalMassOfActorsOnPlate()>=30.0f)
 	{
 		OpenDoor();
 		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
