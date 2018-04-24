@@ -26,7 +26,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	AActor *Owner;
+	AActor *Owner = nullptr;
 	//How far ahead of the player we can reach in cm
 	float Reach = 100.f;
 	

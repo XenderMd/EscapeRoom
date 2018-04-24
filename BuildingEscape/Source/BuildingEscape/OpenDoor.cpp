@@ -20,20 +20,23 @@ UOpenDoor::UOpenDoor()
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
-
 	Owner = GetOwner();
+	if (!PressurePlate) { UE_LOG(LogTemp, Warning, TEXT("No assignement for the PressurePlate pointer")); }
 }
 
 void UOpenDoor::OpenDoor()
 {
-
+	if (!Owner) { return; }
 	//Set door rotation
-	Owner->SetActorRotation(FRotator(0.0f, 90.0f, 0.0f));
+	//Owner->SetActorRotation(FRotator(0.0f, 90.0f, 0.0f));
+
+	//Broadcast the event when the OpenDoor function is called
+	OnOpenRequest.Broadcast();
 }
 
 void UOpenDoor::CloseDoor()
 {
-	
+	if (!Owner) { return; }	
 	//Set door rotation
 	Owner->SetActorRotation(FRotator(0.0f, 0.0f, 0.0f));
 }
@@ -51,11 +54,7 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 		OpenDoor();
 		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
 	}
-	else if
-	(GetWorld()->GetTimeSeconds() - LastDoorOpenTime > DoorCloseDelay) 
-	  {	
-	     CloseDoor();
-	  }
+	else if (GetWorld()->GetTimeSeconds() - LastDoorOpenTime > DoorCloseDelay) {CloseDoor();}
 }
 
 float UOpenDoor::GetTotalMassOfActorsOnPlate()
@@ -64,15 +63,14 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate()
 	TArray<AActor*> OverlappingActors;
 	// Find all the overlapping actors
 
+	if (!PressurePlate) { return -1.0f; }
 	PressurePlate->GetOverlappingActors(OUT OverlappingActors);
 	
 	for (const auto& OverlappingActor:OverlappingActors)
 	{
-
+		// Add their masses
 		TotalMass += OverlappingActor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
 		UE_LOG(LogTemp, Warning, TEXT("%s on pressure plate"), *OverlappingActor->GetName());
 	}
-	
-	// Add their masses
 	return TotalMass;
 }
