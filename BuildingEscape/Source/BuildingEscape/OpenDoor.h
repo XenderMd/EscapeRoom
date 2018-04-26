@@ -9,7 +9,7 @@
 #include "OpenDoor.generated.h"
 
 //Created a new class - an event class and instance of which will be broadcasted from the C++ side
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOpenRequest);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDoorEvent);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BUILDINGESCAPE_API UOpenDoor : public UActorComponent
@@ -24,8 +24,6 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-	//Opens the door
-	void OpenDoor();
 	void CloseDoor();
 
 public:	
@@ -33,11 +31,14 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UPROPERTY(BlueprintAssignable)
-	FOnOpenRequest OnOpenRequest;
+	FDoorEvent OnOpen;
+
+	UPROPERTY(BlueprintAssignable)
+	FDoorEvent OnClose;
 
 private:
 	UPROPERTY(EditAnywhere)
-	float DoorCloseDelay = 1.f;
+	float TriggerMass = 30.0f;
 
 	UPROPERTY(VisibleAnywhere)
 	float OpenAngle = 90.0f;

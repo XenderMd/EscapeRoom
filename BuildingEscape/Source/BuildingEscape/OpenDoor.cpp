@@ -24,15 +24,6 @@ void UOpenDoor::BeginPlay()
 	if (!PressurePlate) { UE_LOG(LogTemp, Warning, TEXT("No assignement for the PressurePlate pointer")); }
 }
 
-void UOpenDoor::OpenDoor()
-{
-	if (!Owner) { return; }
-	//Set door rotation
-	//Owner->SetActorRotation(FRotator(0.0f, 90.0f, 0.0f));
-
-	//Broadcast the event when the OpenDoor function is called
-	OnOpenRequest.Broadcast();
-}
 
 void UOpenDoor::CloseDoor()
 {
@@ -49,12 +40,14 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 
 	// Poll the Trigger Vollume
 	// If the ActorThatOpens is in the volume
-	if (GetTotalMassOfActorsOnPlate()>=30.0f)
+	if (GetTotalMassOfActorsOnPlate()>= TriggerMass)
 	{
-		OpenDoor();
-		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
+		OnOpen.Broadcast();
 	}
-	else if (GetWorld()->GetTimeSeconds() - LastDoorOpenTime > DoorCloseDelay) {CloseDoor();}
+	else 
+	{
+		OnClose.Broadcast();
+	}
 }
 
 float UOpenDoor::GetTotalMassOfActorsOnPlate()
